@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redefine Healthcare — Resource Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f1ec;
+    --surface: #ffffff;
+    --surface-hover: #fafaf8;
+    --border: #e2ddd5;
+    --border-hover: #c9c2b8;
+    --text-primary: #1a1714;
+    --text-secondary: #6b6560;
+    --text-muted: #9e9790;
+    --accent: #1d6b5f;
+    --accent-light: #e8f3f0;
+    --accent-dark: #145249;
+    --shadow-sm: 0 1px 2px rgba(26,23,20,0.04);
+    --shadow-md: 0 4px 12px rgba(26,23,20,0.06);
+    --shadow-lg: 0 8px 30px rgba(26,23,20,0.08);
+    --radius: 14px;
+    --radius-sm: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #1a1714 0%, #2a2520 50%, #1d6b5f 150%);
+    padding: 48px 0 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 20%, rgba(29,107,95,0.25) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(29,107,95,0.1) 0%, transparent 50%);
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .header-badge .dot {
+    width: 6px; height: 6px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .header h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+  .header p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 400;
+  }
+
+  /* ── Search ── */
+  .search-wrapper {
+    max-width: 1200px;
+    margin: -24px auto 0;
+    padding: 0 32px;
+    position: relative;
+    z-index: 10;
+  }
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0 20px;
+    box-shadow: var(--shadow-lg);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .search-bar:focus-within {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-lg), 0 0 0 3px var(--accent-light);
+  }
+  .search-icon {
+    flex-shrink: 0;
+    color: var(--text-muted);
+  }
+  .search-bar input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 18px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--text-primary);
+    background: transparent;
+  }
+  .search-bar input::placeholder { color: var(--text-muted); }
+  .search-count {
+    font-size: 12px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  /* ── Main ── */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+
+  /* ── Category ── */
+  .category {
+    margin-bottom: 40px;
+    animation: fadeUp 0.4s ease-out both;
+  }
+  .category:nth-child(2) { animation-delay: 0.05s; }
+  .category:nth-child(3) { animation-delay: 0.1s; }
+  .category:nth-child(4) { animation-delay: 0.15s; }
+  .category:nth-child(5) { animation-delay: 0.2s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-left: 2px;
+  }
+  .category-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .category-title {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+  }
+  .category-count {
+    font-size: 12px;
+    color: var(--text-muted);
+    background: rgba(0,0,0,0.04);
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-weight: 500;
+  }
+
+  /* ── Cards Grid ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 18px 20px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    position: relative;
+  }
+  .card:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+    background: var(--surface-hover);
+  }
+  .card:hover .card-arrow { opacity: 1; transform: translate(0, 0); }
+
+  .card-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .card-content { flex: 1; min-width: 0; }
+  .card-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .card-desc {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+  .card-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 100px;
+    letter-spacing: 0.2px;
+  }
+  .tag-doc {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .tag-web {
+    background: var(--accent-light);
+    color: var(--accent-dark);
+  }
+  .card-arrow {
+    position: absolute;
+    top: 12px; right: 12px;
+    color: var(--text-muted);
+    opacity: 0;
+    transform: translate(-4px, 4px);
+    transition: all 0.2s ease;
+  }
+
+  /* ── Category Colors ── */
+  .cat-fee .category-icon { background: #ede9fe; color: #7c3aed; }
+  .cat-fee .card-icon { background: #f5f3ff; }
+
+  .cat-provider .category-icon { background: #dbeafe; color: #2563eb; }
+  .cat-provider .card-icon { background: #eff6ff; }
+
+  .cat-billing .category-icon { background: #fce7f3; color: #db2777; }
+  .cat-billing .card-icon { background: #fdf2f8; }
+
+  .cat-clinical .category-icon { background: var(--accent-light); color: var(--accent); }
+  .cat-clinical .card-icon { background: #f0fdf9; }
+
+  .cat-team .category-icon { background: #ffedd5; color: #ea580c; }
+  .cat-team .card-icon { background: #fff7ed; }
+
+  /* ── No Results ── */
+  .no-results {
+    text-align: center;
+    padding: 80px 20px;
+    display: none;
+  }
+  .no-results.visible { display: block; }
+  .no-results-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.4;
+  }
+  .no-results h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+  .no-results p {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .header { padding: 36px 0 44px; }
+    .header h1 { font-size: 28px; }
+    .main { padding: 32px 16px 60px; }
+    .search-wrapper { padding: 0 16px; }
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-badge"><span class="dot"></span> Internal Resource Hub</div>
+    <h1>Redefine Healthcare</h1>
+    <p>Quick access to tools, documents, and reference guides</p>
+  </div>
+</header>
+
+<div class="search-wrapper">
+  <div class="search-bar">
+    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="searchInput" placeholder="Search resources, documents, tools…" autocomplete="off">
+    <span class="search-count" id="searchCount"></span>
+  </div>
+</div>
+
+<main class="main" id="mainContent">
+
+  <!-- Fee Schedules & Pricing -->
+  <section class="category cat-fee" data-category>
+    <div class="category-header">
+      <div class="category-icon">💲</div>
+      <h2 class="category-title">Fee Schedules &amp; Pricing</h2>
+      <span class="category-count"></span>
+    </div>
+    <div class="cards">
+
+      <a class="card" href="https://medicalbillingassociates-my.sharepoint.com/:x:/g/personal/kathy_medbill-assoc_com/IQArj9kgXIG4T4jTTKKGPClUAWWi6kPFrI3aIuPOCS6RuZM?e=8StEgj" target="_blank" data-card data-search="fs pricer master sheet contract rates pricing">
+        <div class="card-icon">📊</div>
+        <div class="card-content">
+          <div class="card-name">FS Pricer Master Sheet</div>
+          <div class="card-desc">Go-to pricer sheet for contract rates</div>
+          <span class="card-tag tag-doc">📄 Internal Document</span>
+        </div>
+        <svg class="card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+
+      <a class="card" href="https://redefinehealthcare-my.sharepoint.com/personal/j_mark_redefinemanagement_com/Documents/Landing%20Page/NJ%20Fee%20Schedule%201-4-13.xlsx" target="_blank" data-card data-search="self pay fee schedule office rates nj">
+        <div class="card-icon">🏷️</div>
+        <div class="card-content">
+          <div class="card-name">Self-Pay Fee Schedule (Office)</div>
+          <div class="card-desc">Self-pay rates for office services</div>
+          <span class="card-tag tag-doc">📄 Internal Document</span>
+        </div>
+        <svg class="card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+
+      <a class="card" href="https://redefinehealthcare-my.sharepoint.com/personal/j_mark_redefinemanagement_com/Documents/Landing%20Page/NJ%20Fee%20Schedule%201-4-13.xlsx" target="_blank" data-card data-search="nj pip fee schedule new jersey auto no-fault dme">
+        <div class="card-icon">🚗</div>
+        <div class="card-content">
+          <div class="card-name">NJ PIP Fee Schedule</div>
+          <div class="card-desc">New Jersey auto no-fault fee schedule</div>
+          <span class="card-tag tag-doc">📄 Internal Document</span>
+        </div>
+        <svg class="card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+
+      <a class="card" href="https://redefinehealthcare-my.sharepoint.com/personal/j_mark_redefinemanagement_com/Documents/Landing%20Page/NJ%20Fee%20Schedule%20DME.pdf" target="_blank" data-card data-search="nj pip dme fee schedule durable medical equipment new jersey">
+        <div class="card-icon">&#x1F9BC;</div>
+        <div class="card-content">
+          <div class="card-name">NJ PIP DME Fee Schedule</div>
+          <div class="card-desc">Durable medical equipment fee schedule</div>
+          <span class="card-tag tag-doc">&#x1F4C4; Internal Document</span>
+        </div>
+        <svg class="card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+
+      <a class="card" href="https://www.cms.gov/medicare/payment/physician-fee-schedule/search" target="_blank" data-card data-search="cms physician fee schedule medicare lookup reimbursement">
+        <div class="card-icon">🔎</div>
+        <div class="card-content">
+          <div class="card-name">CMS Physician Fee Schedule</div>
+          <div class="card-desc">Medicare physician fee schedule lookup</div>
+          <span class="card-tag tag-web">🌐 CMS.gov</span>
+        </div>
+        <svg class="card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+
+      <a class="card" href="https://www.cms.gov/medicare/payment/part-b-drugs/asp-pricing-files" target="_blank" data-card data-search="cms drug fee schedule asp pricing part b medication">
+        <div class="card-icon">💊</div>
+        <div class="card-content">
+          <div class="card-name">CMS Drug Fee Schedule (ASP)</div>
+          <div class="card-desc">Medicare Part B drug ASP pricing files</div>
+          <span class="card-tag tag-web">🌐 CMS.gov</span>
+        </div>
+        <svg class="card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Provider & Enrollment -->
+  <section class="category cat-provider" data-category>
+    <div class="category-header">
+      <div class="category-icon">🏥</div>
+      <h2 class="category-title">Provider &amp; Enrollment</h2>
+      <span class="category-count"></span>
+    </div>
+    <div class="cards">
+
+      <a class="card" href="https://medicalbillingassociates-my.sharepoint.com/:x:/g/personal/kathy_medbill-assoc_com/IQDhXou1VBW8SqYmt8SFVKVGAc2Rls-ib6PEvQvM8FXLrvw?e=Vhhxo8&nav=MTVfezlGNTUyMUExLUNEQUYtNDlCRi05M0VELTI5Rjg4RTM0NkU0M30" target="_blank" data-card data-search="payer enrollment master spreadsheet provider credentialing updates">
+        <div class="card-icon">📋</div>
+        <div class="card-content">
+          <div class="card-name">Payer Enrollment Master Spreadsheet</div>
+          <div class="card-desc">Provider enrollment tracking &amp; updates</div>
+          <span class="card-tag tag-doc">📄 Internal Document</span>
+        </div>
+        <svg class="card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+
+      <a class="card" href="https://redefinehealthcare-my.sharepoint.com/personal/j_mark_redefinemanagement_com/Documents/Landing%20Page/FPI_UHC_All_Providers_Participation%20Status_Roster_2025_0728%20(002).xlsx" target="_blank" data-card data-search="uhc united healthcare participating providers plan participation roster">
+        <div class="card-icon">📑</div>
+        <div class="card-content">
+          <div class="card-name">UHC Provider Participation Roster</div>
+          <div class="card-desc">All providers — UHC plan participation status</div>
+          <span class="card-tag tag-doc">📄 Internal Document</span>
+        </div>
+        <svg class="card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+
+      <a class="card" href="https://npiregistry.cms.hhs.gov/search" target="_blank" data-card data-search="npi registry nppes national provider identifier lookup search">
+        <div class="card-icon">🔍</div>
+        <div class="card-content">
+          <div class="card-name">NPPES NPI Registry</div>
+          <div class="card-desc">National Provider Identifier lookup</div>
+          <span class="card-tag tag-web">🌐 CMS.hhs.gov</span>
+        </div>
+        <svg class="card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Billing & Revenue Cycle -->
+  <section class="category cat-billing" data-category>
+    <div class="category-header">
+      <div class="category-icon">🧾</div>
+      <h2 class="category-title">Billing &amp; Revenue Cycle</h2>
+      <span class="category-count"></span>
+    </div>
+    <div class="cards">
+
+      <a class="card" href="https://redefinehealthcare-my.sharepoint.com/personal/j_mark_redefinemanagement_com/Documents/Landing%20Page/BYOLB%20Remittance%20Template2.pdf" target="_blank" data-card data-search="byolb remittance template athena lockbox posting payments">
+        <div class="card-icon">📬</div>
+        <div class="card-content">
+          <div class="card-name">BYOLB Remittance Template</div>
+          <div class="card-desc">Athena "Be Your Own Lock Box" coversheet for remittance</div>
+          <span class="card-tag tag-doc">📄 Internal Document</span>
+        </div>
+        <svg class="card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+
+      <a class="card" href="https://www.cms.gov/medicare-coverage-database/search.aspx" target="_blank" data-card data-search="medicare coverage database lcd local coverage determination code review">
+        <div class="card-icon">🗂️</div>
+        <div class="card-content">
+          <div class="card-name">Medicare Coverage Database</div>
+          <div class="card-desc">LCD lookup — code coverage review for Medicare</div>
+          <span class="card-tag tag-web">🌐 CMS.gov</span>
+        </div>
+        <svg class="card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Clinical & Lab Reference -->
+  <section class="category cat-clinical" data-category>
+    <div class="category-header">
+      <div class="category-icon">🧪</div>
+      <h2 class="category-title">Clinical &amp; Lab Reference</h2>
+      <span class="category-count"></span>
+    </div>
+    <div class="cards">
+
+      <a class="card" href="https://redefinehealthcare-my.sharepoint.com/personal/j_mark_redefinemanagement_com/Documents/Landing%20Page/REDEFINE%20HEALTHCARE%20LAB%20INSURANCE%20LIST.pdf" target="_blank" data-card data-search="lab insurance list preferred laboratory in-house outside labcorp quest payer">
+        <div class="card-icon">🔬</div>
+        <div class="card-content">
+          <div class="card-name">Preferred Lab Insurance List</div>
+          <div class="card-desc">In-house vs. outside lab routing by payer</div>
+          <span class="card-tag tag-doc">📄 Internal Document</span>
+        </div>
+        <svg class="card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Team & Contacts -->
+  <section class="category cat-team" data-category>
+    <div class="category-header">
+      <div class="category-icon">👥</div>
+      <h2 class="category-title">Team &amp; Contacts</h2>
+      <span class="category-count"></span>
+    </div>
+    <div class="cards">
+
+      <a class="card" href="https://redefinehealthcare-my.sharepoint.com/personal/j_mark_redefinemanagement_com/Documents/Landing%20Page/Redefine%20Management%20Practice%20Managers%20Directory.xlsx" target="_blank" data-card data-search="practice managers directory management contacts offices">
+        <div class="card-icon">🏢</div>
+        <div class="card-content">
+          <div class="card-name">Practice Managers Directory</div>
+          <div class="card-desc">Contact info for all practice managers</div>
+          <span class="card-tag tag-doc">📄 Internal Document</span>
+        </div>
+        <svg class="card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+
+      <a class="card" href="https://medicalbillingassociates-my.sharepoint.com/:x:/g/personal/kathy_medbill-assoc_com/IQDk4EHx-kWHQ6yk4LkRWXz-AaPMQ4OGXn4iEIfCyvORn0E?e=udUEQb" target="_blank" data-card data-search="mba phone list employee directory phone numbers staff">
+        <div class="card-icon">📞</div>
+        <div class="card-content">
+          <div class="card-name">MBA Phone List</div>
+          <div class="card-desc">Employee phone directory</div>
+          <span class="card-tag tag-doc">📄 Internal Document</span>
+        </div>
+        <svg class="card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="no-results" id="noResults">
+    <div class="no-results-icon">🔍</div>
+    <h3>No matching resources</h3>
+    <p>Try a different search term</p>
+  </div>
+
+</main>
+
+<footer class="footer">
+  Redefine Healthcare — Internal Use Only · Last updated March 2026
+</footer>
+
+<script>
+  // ── Search Logic ──
+  const searchInput = document.getElementById('searchInput');
+  const searchCount = document.getElementById('searchCount');
+  const noResults = document.getElementById('noResults');
+  const categories = document.querySelectorAll('[data-category]');
+  const allCards = document.querySelectorAll('[data-card]');
+
+  // Set initial counts
+  function updateCategoryCounts() {
+    categories.forEach(cat => {
+      const visible = cat.querySelectorAll('[data-card]:not([style*="display: none"])');
+      const countEl = cat.querySelector('.category-count');
+      countEl.textContent = visible.length + ' item' + (visible.length !== 1 ? 's' : '');
+    });
+  }
+  updateCategoryCounts();
+
+  searchInput.addEventListener('input', function() {
+    const q = this.value.toLowerCase().trim();
+    let totalVisible = 0;
+
+    allCards.forEach(card => {
+      const searchText = (card.dataset.search + ' ' + card.textContent).toLowerCase();
+      const match = !q || q.split(/\s+/).every(word => searchText.includes(word));
+      card.style.display = match ? '' : 'none';
+      if (match) totalVisible++;
+    });
+
+    // Hide empty categories
+    categories.forEach(cat => {
+      const hasVisible = cat.querySelectorAll('[data-card]:not([style*="display: none"])').length > 0;
+      cat.style.display = hasVisible ? '' : 'none';
+    });
+
+    updateCategoryCounts();
+    noResults.classList.toggle('visible', totalVisible === 0 && q.length > 0);
+    searchCount.textContent = q ? totalVisible + ' of ' + allCards.length : '';
+  });
+
+  // Focus search on "/" key
+  document.addEventListener('keydown', e => {
+    if (e.key === '/' && document.activeElement !== searchInput) {
+      e.preventDefault();
+      searchInput.focus();
+    }
+  });
+</script>
+
+</body>
+</html>
